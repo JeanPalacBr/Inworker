@@ -1,13 +1,19 @@
 import React from 'react';
 import { TextField, Button } from '@material-ui/core'
+import queryString from 'query-string';
+
 import { getUserById, updateUserById, changeEmail } from '../../services/firebase';
 import { getToken } from '../../services/storage';
 
 class EditProfile extends React.Component {
-    state = {
-        email: '',
-        name: ''
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: '',
+            name: ''
+        }
     }
+
     async componentDidMount() {
         const { id } = this.props.match.params;
         const { success, res } = await getUserById(id)
@@ -26,8 +32,13 @@ class EditProfile extends React.Component {
         event.preventDefault();
         const { id } = this.props.match.params;
         const { name, email } = this.state;
-        await updateUserById(id, { name, email })
-        changeEmail({email,id:getToken()})
+        const {  success } = await updateUserById(id, { name, email })
+        if (success) {
+            changeEmail({ email, id: getToken() })
+            alert("Actualización completa")
+        } else {
+            alert("No se pudo actualizar intente mas tarde")
+        }
 
     }
     render() {

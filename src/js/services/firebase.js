@@ -157,14 +157,13 @@ export async function getUser() {
         return { success: false, res: error.message };
     }
 }
-/**
 
- */
+
 export async function getUserById(id) {
     try {
-        const userCollection = firebase.firestore().collection('usuarios').doc(id)
-        const _users = await userCollection.get()
-        return { success: true, res: _users.data() };
+        const userDocument = await  firebase.firestore().collection('usuarios').where("id", "==", id).get()
+        const doc =  await userDocument.docs[0].ref.get()
+        return { success: true, res: doc.data() };
 
     } catch (error) {
         console.log('error get users', error.message);

@@ -1,10 +1,9 @@
 import React from 'react';
-import {  Typography, Button, CircularProgress, Divider } from '@material-ui/core'
+import { Typography, Button, CircularProgress, Divider } from '@material-ui/core'
 import {
     IconButton,
 } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
-
 import { uploadFileToFirebase, getUserInfo, getUserid } from '../../services/storage';
 import { updateUser } from '../../services/firebase';
 import stars from '../../../assets/stars.png'
@@ -44,7 +43,7 @@ export default function Profile(props) {
     }
 
     return (
-        <div  className='profile-container'>
+        <div className='profile-container'>
             <div className="left-side">
                 <div className="image-container">
                     <img
@@ -63,6 +62,7 @@ export default function Profile(props) {
                     onChange={handleImageChage}
                 />
                 <Button
+                style={{marginBottom:10}}
                     className="button-change-image"
                     color="primary"
                     variant="contained"
@@ -71,16 +71,16 @@ export default function Profile(props) {
                     Cambiar Foto
             </Button>
 
-                <Typography variant="h5">
+                <Typography variant="h5" style={{marginBottom:10}}>
                     E-mail {getUserInfo().email}
                 </Typography>
-                <Typography variant="h5">
+                <Typography variant="h5" style={{marginBottom:10}}>
                     Teléfono XXXXX
                 </Typography>
                 <IconButton aria-label="edit" onClick={goToEdit}>
                     Modificar <Edit />
-                </IconButton> 
-    
+                </IconButton>
+
                 <div className="info-container">
                     {renderStars()}
                     <Divider />
